@@ -1,11 +1,12 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:desain_telkomsel/state_util.dart';
-import '../view/dasbord_view.dart';
+import '../view/menubawah_view.dart';
 
-class DasbordController extends State<DasbordView> implements MvcController {
-  static late DasbordController instance;
-  late DasbordView view;
+class MenubawahController extends State<MenubawahView>
+    implements MvcController {
+  static late MenubawahController instance;
+  late MenubawahView view;
 
   @override
   void initState() {

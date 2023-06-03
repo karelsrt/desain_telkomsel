@@ -1,6 +1,6 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:desain_telkomsel/core.dart';
-import '../controller/dasbord_controller.dart';
 
 class DasbordView extends StatefulWidget {
   const DasbordView({Key? key}) : super(key: key);
@@ -99,33 +99,30 @@ class DasbordView extends StatefulWidget {
                         Radius.circular(12.0),
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.heart_broken,
-                            size: 10,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(
+                            Icons.heart_broken_rounded,
                             color: Colors.white,
                           ),
-                        ),
-                        const Text(
-                          "19 POINT",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                          Text(
+                            "19 POINT",
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
+                          Icon(
                             Icons.arrow_forward_ios,
                             size: 10,
                             color: Colors.white,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -140,33 +137,31 @@ class DasbordView extends StatefulWidget {
                         Radius.circular(12.0),
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(
                             Icons.star,
                             size: 10,
                             color: Colors.white,
                           ),
-                        ),
-                        const Text(
-                          "DAILY CHECK IN",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                          Text(
+                            "DAILY CHECK IN",
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
+                          Icon(
                             Icons.arrow_forward_ios,
                             size: 10,
                             color: Colors.white,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -174,59 +169,57 @@ class DasbordView extends StatefulWidget {
               const SizedBox(
                 height: 13.0,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 120,
-                    decoration: const BoxDecoration(
-                      color: Color(0xffF5F4F2),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
+              Builder(builder: (context) {
+                List<Widget> images = [
+                  const MenuatasView(),
+                  const MenubawahView(),
+                ];
+                return Column(
+                  children: [
+                    CarouselSlider(
+                      items: images,
+                      carouselController: controller.carouselController,
+                      options: CarouselOptions(
+                        enableInfiniteScroll: false,
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        height: 385,
+                        viewportFraction: 1,
+                        onPageChanged: (index, reason) {
+                          controller.currentIndex = index;
+                          controller.setState(() {});
+                        },
                       ),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Rp 0",
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: images.asMap().entries.map((entry) {
+                        bool isSelected = controller.currentIndex == entry.key;
+                        return GestureDetector(
+                          onTap: () => controller.carouselController
+                              .animateToPage(entry.key),
+                          child: Container(
+                            width: isSelected ? 40 : 6.0,
+                            height: 6.0,
+                            margin: const EdgeInsets.only(
+                              right: 6.0,
+                              top: 12.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: isSelected
+                                  ? Colors.white
+                                  : const Color(0xff3c3e40),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12.0),
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: 7,
-                          ),
-                          Text(
-                            "Active Until 22 Sep 2021",
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff535760)),
-                          ),
-                          Row(
-                            children: [],
-                          )
-                        ],
-                      ),
+                        );
+                      }).toList(),
                     ),
-                  ),
-                  Container(
-                    height: 120,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              }),
             ],
           ),
         ),

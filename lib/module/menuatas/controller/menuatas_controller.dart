@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:desain_telkomsel/state_util.dart';
-import '../view/dasbord_view.dart';
+import '../view/menuatas_view.dart';
 
-class DasbordController extends State<DasbordView> implements MvcController {
-  static late DasbordController instance;
-  late DasbordView view;
+class MenuatasController extends State<MenuatasView> implements MvcController {
+  static late MenuatasController instance;
+  late MenuatasView view;
 
   @override
   void initState() {
@@ -18,6 +18,7 @@ class DasbordController extends State<DasbordView> implements MvcController {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+
   int selecetedCaragoryIndex = 0;
   int currentIndex = 0;
   final CarouselController carouselController = CarouselController();
